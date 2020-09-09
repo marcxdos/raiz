@@ -1,0 +1,262 @@
+    <head>
+        <title>Validación de formulario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+        <script>
+            // Definiendo un arreglo
+            var arreglo = new Array();
+            arreglo[0]="errorNombre";
+            arreglo[1]="errorApellido";
+            arreglo[2]="errorEmail";
+            arreglo[3]="errorUser";
+            arreglo[4]="errorPassword";
+            arreglo[5]="errorConfirmar";
+            
+            // Definiendo la funcion validar
+            function validar()
+            {
+                //capturar los valores ingresados en los campos
+                var entrada = new Array();
+                entrada[0] = document.getElementById('nombre').value;
+                entrada[1] = document.getElementById('apellido').value;
+                entrada[2] = document.getElementById('email').value;
+                entrada[3] = document.getElementById('user').value;
+                entrada[4] = document.getElementById('password').value;
+                entrada[5] = document.getElementById('confirmar').value;
+                
+                var error = new Array();
+                error[0] ="<span style='color:red'>Ingrese el nombre!!</span>";
+                error[1] ="<span style='color:red'>Ingrese el apellido!!</span>";
+                error[2] ="<span style='color:red'>Ingrese el email!!</span>";
+                error[3] ="<span style='color:red'>Ingrese el usuario!!</span>";
+                error[4] ="<span style='color:red'>Ingrese el password!!</span>";
+                error[5] ="<span style='color:red'>Confirme el password!!</span>";
+                
+                for(i in entrada)
+                {
+                    var mensajeError = error[i];
+                    var valorArreglo = arreglo[i];
+                    
+                    if(entrada[i]=="")
+                        document.getElementById(valorArreglo).innerHTML = mensajeError;
+                 
+                else if(i==2)
+                {
+                    //Devuelve la posicion o indice donde esta el caracter a buscar
+                    var arroba=entrada[i].indexOf("@");
+                    var punto=entrada[i].lastIndexOf(".");
+                    if (arroba<1||punto<arroba+2||punto+2>entrada[i].length)
+                    {
+                        document.getElementById('errorEmail').innerHTML="<span style='color:red'>Ingrese una direccion de email valida</span>"; 
+                    }
+                    else
+                    {
+                        document.getElementById(valorArreglo).innerHTML="Campo validado";
+                    }
+                }
+                else if(i==5)
+                {
+                    var primero=document.getElementById('password').value;
+                    var segundo=document.getElementById('confirmar').value;
+                    if (segundo!=primero)
+                    {
+                      document.getElementById('errorConfirmar').innerHTML="<span style='color:red'>Ingrese una password valida</span>"; 
+ 
+                    }
+                    else
+                    {
+                        document.getElementById(valorArreglo).innerHTML="Campo validado";
+                    }
+                }
+                else
+                    document.getElementById(valorArreglo).innerHTML="Campo validado";
+            }
+        }
+        function validarTodos()
+        {
+          var contador=0;
+          for (i=0; i<6; i++)
+          {
+               var valorArreglo=arreglo[i];
+               if(document.getElementById(valorArreglo).innerHTML=="Campo validado")
+               {
+                  contador++; 
+          }
+      }
+      if(contador==6){
+          document.getElementById("mensajefinal").innerHTML="formulario  validado"
+      }
+        }
+        </script>
+        <style>
+    
+    :root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: .75rem;
+}
+
+body {
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
+}
+
+.card-signin {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-signin .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.card-signin .card-img-left {
+  width: 45%;
+  /* Link to your background image using in the property below! */
+  background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+  background-size: cover;
+}
+
+.card-signin .card-body {
+  padding: 2rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.form-signin .btn {
+  font-size: 80%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.2s;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group input {
+  height: auto;
+  border-radius: 2rem;
+}
+
+.form-label-group>input,
+.form-label-group>label {
+  padding : var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group>label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown)~label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+
+.btn-google {
+  color: white;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+}
+</style>
+    </head>
+    <body>
+    <center>
+        <div >Bienvenido</div>
+        <h2 class="jumbotron" style="background-color:pink">Formulario JavaScript</h2>
+        <table>
+            <tr>
+                <td>Nombre:</td>
+                <td><input type="text" id="nombre" onkeyup="validar()"/></td>
+                <td><div id="errorNombre"></div>></td>
+            </tr>
+             <tr>
+                <td>Apellido</td>
+                <td><input type="text" id="apellido" onkeyup="validar()"/></td>
+                 <td><div id="errorApellido"></div>></td>
+            </tr>
+             <tr>
+                <td>Email</td>
+                <td><input type="text" id="email" onkeyup="validar()"/></td>
+                 <td><div id="errorEmail"></div>></td>
+            </tr>
+             <tr>
+                <td>Usuario</td>
+                <td><input type="text" id="user" onkeyup="validar()"/></td>
+                  <td><div id="errorUser"></div>></td>
+            </tr>
+             <tr>
+                <td>Password</td>
+                <td><input type="password" id="password" onkeyup="validar()"/></td>
+                 <td><div id="errorPassword"></div>></td>
+            </tr>
+             <tr>
+                <td>Confirmar Password</td>
+                <td><input type="password" id="confirmar" onkeyup="validar()"/></td>
+                <td><div id="errorConfirmar"></div>></td>
+            </tr>
+             <tr>
+                <td></td>
+                <td><input type="button" id="botonvalidar" value="Validar" onclick="validar();validarTodos();"/></td>
+                <td><div id="mensajefinal"></div></td>
+            </tr>
+            
+        </table>
+    </center>
+    </body>
+</html>
